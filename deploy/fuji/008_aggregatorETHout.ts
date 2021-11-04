@@ -180,8 +180,6 @@ const func: DeployFunction = async ({ deployments, getNamedAccounts, getUnnamedA
 
 };
 
-
-
 export default func;
 
 func.tags = ['aggregatorETHout'];
