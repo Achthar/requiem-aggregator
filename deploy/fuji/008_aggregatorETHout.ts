@@ -25,7 +25,8 @@ const func: DeployFunction = async ({ deployments, getNamedAccounts, getUnnamedA
     log: true,
     args: [
       '0x2a90276992ddC21C3585FE50f5B43D0Cf62aDe03',
-      '0x9067e2C2bf8531283AB97C34EaA74599E0004842'
+      '0x9067e2C2bf8531283AB97C34EaA74599E0004842',
+      '0xd00ae08403B9bbb9124bB305C09058E32C39A48c'
     ],
   });
   /*
@@ -82,11 +83,13 @@ const func: DeployFunction = async ({ deployments, getNamedAccounts, getUnnamedA
   // await execute('USDT', {from: user}, 'approve', aggregator.address, ethers.constants.MaxInt256);
   // await execute('DAI', {from: user}, 'approve', aggregator.address, ethers.constants.MaxInt256);
 
-  await inToken.approve(aggregator.address, ethers.constants.MaxInt256);
-  await token2.approve(aggregator.address,  ethers.constants.MaxInt256);
+  // await inToken.approve(aggregator.address, ethers.constants.MaxInt256);
+  // await token2.approve(aggregator.address, ethers.constants.MaxInt256);
 
-  await tokenReqt.approve(aggregator.address,  ethers.constants.MaxInt256);
-  await token3.approve(aggregator.address,  ethers.constants.MaxInt256);
+  // await token3.approve(aggregator.address, ethers.constants.MaxInt256);
+
+
+  // await tokenReqt.approve(aggregator.address, ethers.constants.MaxInt256);
   // console.log('transfer test');
   // await execute(
   //   'aggregator',
@@ -108,16 +111,34 @@ const func: DeployFunction = async ({ deployments, getNamedAccounts, getUnnamedA
   //   ethers.BigNumber.from('900000000000000000000000000'), //deadline
   // );
 
-  console.log("--- multiSwap struct----");
+  // console.log("-- swap x for eth test");
+  // const pairRouter = await ethers.getContractAt('IRequiemRouter02', '0x2a90276992ddC21C3585FE50f5B43D0Cf62aDe03', deployer);
 
+  // await pairRouter.swapExactTokensForETH(ethers.BigNumber.from('1000000'), ethers.BigNumber.from(0), [wavax, stables[0]], deployer, ethers.BigNumber.from('900000000000000000000000000'));
+  // console.log("-- raw to eth done");
+
+  await execute(
+    'aggregator',
+    {
+      from: deployer, gasLimit: 8e6
+    },
+    'multiSwapExactTokensForETH',
+    [[stables[0], wavax]],
+    [1],
+    ethers.BigNumber.from('1000000'), // amount in
+    ethers.BigNumber.from('0'), // amount out min
+    ethers.BigNumber.from('900000000000000000000000000'), //deadline
+  );
+
+  console.log("--- multiSwap struct----");
 
   await execute(
     'aggregator',
     { from: deployer, gasLimit: 8e6 },
     'multiSwapExactTokensForETH',
-    [[ stables[0],wavax]],
+    [[stables[0], wavax]],
     [1],
-    ethers.BigNumber.from('100'), // amount in
+    ethers.BigNumber.from('100000000000'), // amount in
     ethers.BigNumber.from(0), //min out
     ethers.BigNumber.from('900000000000000000000000000'), //deadline
   );
@@ -139,7 +160,7 @@ const func: DeployFunction = async ({ deployments, getNamedAccounts, getUnnamedA
     'aggregator',
     { from: deployer, gasLimit: 8e6 },
     'multiSwapExactTokensForETH',
-    [[stables[0], stables[1]], [stables[1], reqt, wavax, stables[2]], [stables[2], stables[0]],[stables[0], wavax]],
+    [[stables[0], stables[1]], [stables[1], reqt, wavax, stables[2]], [stables[2], stables[0]], [stables[0], wavax]],
     [0, 1, 0, 1],
     ethers.BigNumber.from(10000), // amount in
     ethers.BigNumber.from(0), //min out

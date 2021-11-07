@@ -25,7 +25,8 @@ const func: DeployFunction = async ({ deployments, getNamedAccounts, getUnnamedA
     log: true,
     args: [
       '0x2a90276992ddC21C3585FE50f5B43D0Cf62aDe03',
-      '0x9067e2C2bf8531283AB97C34EaA74599E0004842'
+      '0x9067e2C2bf8531283AB97C34EaA74599E0004842',
+      '0xd00ae08403B9bbb9124bB305C09058E32C39A48c'
     ],
   });
   /*

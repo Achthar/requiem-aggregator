@@ -21,7 +21,8 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface RequiemAggregatorInterface extends ethers.utils.Interface {
   functions: {
-    "multiSwapETHForExactTokens(address[][],uint256[],uint256,uint256,uint256)": FunctionFragment;
+    "WETH()": FunctionFragment;
+    "multiSwapETHForExactTokens(address[][],uint256[],uint256,uint256)": FunctionFragment;
     "multiSwapExactETHForTokens(address[][],uint256[],uint256,uint256)": FunctionFragment;
     "multiSwapExactTokensForETH(address[][],uint256[],uint256,uint256,uint256)": FunctionFragment;
     "multiSwapExactTokensForTokens(address[][],uint256[],uint256,uint256,uint256)": FunctionFragment;
@@ -31,15 +32,10 @@ interface RequiemAggregatorInterface extends ethers.utils.Interface {
     "stableRouter()": FunctionFragment;
   };
 
+  encodeFunctionData(functionFragment: "WETH", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "multiSwapETHForExactTokens",
-    values: [
-      string[][],
-      BigNumberish[],
-      BigNumberish,
-      BigNumberish,
-      BigNumberish
-    ]
+    values: [string[][], BigNumberish[], BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "multiSwapExactETHForTokens",
@@ -94,6 +90,7 @@ interface RequiemAggregatorInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
 
+  decodeFunctionResult(functionFragment: "WETH", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "multiSwapETHForExactTokens",
     data: BytesLike
@@ -171,11 +168,12 @@ export class RequiemAggregator extends BaseContract {
   interface: RequiemAggregatorInterface;
 
   functions: {
+    WETH(overrides?: CallOverrides): Promise<[string]>;
+
     multiSwapETHForExactTokens(
       path: string[][],
       routerId: BigNumberish[],
       amountOut: BigNumberish,
-      amountInMax: BigNumberish,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -229,11 +227,12 @@ export class RequiemAggregator extends BaseContract {
     stableRouter(overrides?: CallOverrides): Promise<[string]>;
   };
 
+  WETH(overrides?: CallOverrides): Promise<string>;
+
   multiSwapETHForExactTokens(
     path: string[][],
     routerId: BigNumberish[],
     amountOut: BigNumberish,
-    amountInMax: BigNumberish,
     deadline: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -287,11 +286,12 @@ export class RequiemAggregator extends BaseContract {
   stableRouter(overrides?: CallOverrides): Promise<string>;
 
   callStatic: {
+    WETH(overrides?: CallOverrides): Promise<string>;
+
     multiSwapETHForExactTokens(
       path: string[][],
       routerId: BigNumberish[],
       amountOut: BigNumberish,
-      amountInMax: BigNumberish,
       deadline: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -348,11 +348,12 @@ export class RequiemAggregator extends BaseContract {
   filters: {};
 
   estimateGas: {
+    WETH(overrides?: CallOverrides): Promise<BigNumber>;
+
     multiSwapETHForExactTokens(
       path: string[][],
       routerId: BigNumberish[],
       amountOut: BigNumberish,
-      amountInMax: BigNumberish,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -407,11 +408,12 @@ export class RequiemAggregator extends BaseContract {
   };
 
   populateTransaction: {
+    WETH(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     multiSwapETHForExactTokens(
       path: string[][],
       routerId: BigNumberish[],
       amountOut: BigNumberish,
-      amountInMax: BigNumberish,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;

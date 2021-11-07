@@ -22,13 +22,11 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface IWETHInterface extends ethers.utils.Interface {
   functions: {
-    "balanceOf(address)": FunctionFragment;
     "deposit()": FunctionFragment;
     "transfer(address,uint256)": FunctionFragment;
     "withdraw(uint256)": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
   encodeFunctionData(functionFragment: "deposit", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "transfer",
@@ -39,7 +37,6 @@ interface IWETHInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
 
-  decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "transfer", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
@@ -91,8 +88,6 @@ export class IWETH extends BaseContract {
   interface: IWETHInterface;
 
   functions: {
-    balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>;
-
     deposit(
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -108,8 +103,6 @@ export class IWETH extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
-
-  balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   deposit(
     overrides?: PayableOverrides & { from?: string | Promise<string> }
@@ -127,8 +120,6 @@ export class IWETH extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
-
     deposit(overrides?: CallOverrides): Promise<void>;
 
     transfer(
@@ -143,8 +134,6 @@ export class IWETH extends BaseContract {
   filters: {};
 
   estimateGas: {
-    balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
-
     deposit(
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -162,11 +151,6 @@ export class IWETH extends BaseContract {
   };
 
   populateTransaction: {
-    balanceOf(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     deposit(
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;

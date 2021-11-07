@@ -3544,7 +3544,7 @@
       ]
     },
     "/home/achthar/requiem-aggregator/contracts/interfaces/IERC20.sol": {
-      "lastModificationDate": 1636052893596,
+      "lastModificationDate": 1636065294289,
       "contentHash": "cb67ca95371b67c0f72b0095b632281e",
       "sourceName": "contracts/interfaces/IERC20.sol",
       "solcConfig": {
@@ -4241,8 +4241,8 @@
       ]
     },
     "/home/achthar/requiem-aggregator/contracts/RequiemAggregator.sol": {
-      "lastModificationDate": 1636052893596,
-      "contentHash": "f80c7f412ed922f8b989c21f583e7c47",
+      "lastModificationDate": 1636113524300,
+      "contentHash": "85740255f32968c07a419ad75c874e84",
       "sourceName": "contracts/RequiemAggregator.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -4284,19 +4284,18 @@
         "./interfaces/IRequiemRouter02.sol",
         "./interfaces/IRequiemStableSwap.sol",
         "./interfaces/IERC20.sol",
-        "./interfaces/IWETH.sol",
-        "./libraries/TransferHelper.sol"
+        "./interfaces/IWETH.sol"
       ],
       "versionPragmas": [
-        "0.8.4"
+        ">=0.7.6"
       ],
       "artifacts": [
         "RequiemAggregator"
       ]
     },
     "/home/achthar/requiem-aggregator/contracts/interfaces/IWETH.sol": {
-      "lastModificationDate": 1636052893600,
-      "contentHash": "64b7f442da796ae9a9c1c320856637ca",
+      "lastModificationDate": 1636060855095,
+      "contentHash": "394225ba5efc3d0459b82f7bae859443",
       "sourceName": "contracts/interfaces/IWETH.sol",
       "solcConfig": {
         "version": "0.8.4",

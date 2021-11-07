@@ -25,7 +25,8 @@ const func: DeployFunction = async ({ deployments, getNamedAccounts, getUnnamedA
     log: true,
     args: [
       '0x2a90276992ddC21C3585FE50f5B43D0Cf62aDe03',
-      '0x9067e2C2bf8531283AB97C34EaA74599E0004842'
+      '0x9067e2C2bf8531283AB97C34EaA74599E0004842',
+      '0xd00ae08403B9bbb9124bB305C09058E32C39A48c'
     ],
   });
   /*
@@ -82,11 +83,11 @@ const func: DeployFunction = async ({ deployments, getNamedAccounts, getUnnamedA
   // await execute('USDT', {from: user}, 'approve', aggregator.address, ethers.constants.MaxInt256);
   // await execute('DAI', {from: user}, 'approve', aggregator.address, ethers.constants.MaxInt256);
 
-  // await inToken.approve(aggregator.address, ethers.constants.MaxInt256);
-  // await token2.approve(aggregator.address,  ethers.constants.MaxInt256);
+  await inToken.approve(aggregator.address, ethers.constants.MaxInt256);
+  await token2.approve(aggregator.address,  ethers.constants.MaxInt256);
 
-  // await tokenReqt.approve(aggregator.address,  ethers.constants.MaxInt256);
-  // await token3.approve(aggregator.address,  ethers.constants.MaxInt256);
+  await tokenReqt.approve(aggregator.address,  ethers.constants.MaxInt256);
+  await token3.approve(aggregator.address,  ethers.constants.MaxInt256);
   // console.log('transfer test');
   // await execute(
   //   'aggregator',
@@ -111,17 +112,17 @@ const func: DeployFunction = async ({ deployments, getNamedAccounts, getUnnamedA
   console.log("--- multiSwap struct----");
 
 
-  await execute(
-    'aggregator',
-    { from: deployer, gasLimit: 8e6 },
-    'multiSwapTokensForExactTokensTest',
-    [[stables[0], wavax]],
-    [1],
-    ethers.BigNumber.from('100000000'), // amount out
-    ethers.BigNumber.from('900000000000000000000000000'), //in max
-    ethers.BigNumber.from('900000000000000000000000000'), //deadline
-  );
-  console.log("--- 1 succssful ---")
+  // await execute(
+  //   'aggregator',
+  //   { from: deployer, gasLimit: 8e6 },
+  //   'multiSwapTokensForExactTokensTest',
+  //   [[stables[0], wavax]],
+  //   [1],
+  //   ethers.BigNumber.from('100000000'), // amount out
+  //   ethers.BigNumber.from('900000000000000000000000000'), //in max
+  //   ethers.BigNumber.from('900000000000000000000000000'), //deadline
+  // );
+  // console.log("--- 1 succssful ---")
 
   await execute(
     'aggregator',

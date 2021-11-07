@@ -25,7 +25,8 @@ const func: DeployFunction = async ({ deployments, getNamedAccounts, getUnnamedA
     log: true,
     args: [
       '0x2a90276992ddC21C3585FE50f5B43D0Cf62aDe03',
-      '0x9067e2C2bf8531283AB97C34EaA74599E0004842'
+      '0x9067e2C2bf8531283AB97C34EaA74599E0004842',
+      '0xd00ae08403B9bbb9124bB305C09058E32C39A48c'
     ],
   });
   /*
@@ -115,110 +116,77 @@ const func: DeployFunction = async ({ deployments, getNamedAccounts, getUnnamedA
     'aggregator',
     { from: deployer, gasLimit: 8e6 },
     'multiSwapExactTokensForTokens',
-    [[ stables[0],wavax]],
+    [[ wavax, stables[0]]],
     [1],
-    ethers.BigNumber.from('100'), // amount in
+    ethers.BigNumber.from('600000000000000000'), // amount in
     ethers.BigNumber.from(0), //min out
     ethers.BigNumber.from('900000000000000000000000000'), //deadline
   );
   console.log("--- 1 succssful ---")
 
-  await execute(
-    'aggregator',
-    { from: deployer, gasLimit: 8e6 },
-    'multiSwapExactTokensForTokens',
-    [[stables[0], stables[1]], [stables[1], reqt]],
-    [0, 1],
-    inAmountUSDC, // amount in
-    ethers.BigNumber.from(0), //min out
-    ethers.BigNumber.from('900000000000000000000000000'), //deadline
-  );
-  console.log("--- 01 succssful ---")
-
-  await execute(
-    'aggregator',
-    { from: deployer, gasLimit: 8e6 },
-    'multiSwapExactTokensForTokens',
-    [[stables[0], stables[1]], [stables[1], reqt, wavax, stables[2]], [stables[2], stables[0]]],
-    [0, 1, 0],
-    ethers.BigNumber.from(10000), // amount in
-    ethers.BigNumber.from(0), //min out
-    ethers.BigNumber.from('900000000000000000000000000'), //deadline
-  );
-
-  console.log("--- 010 successful ---")
-  await execute(
-    'aggregator',
-    { from: deployer, gasLimit: 8e6 },
-    'multiSwapExactTokensForTokens',
-    [[reqt, wavax, stables[0]], [stables[0], stables[1]]],
-    [1, 0],
-    inAmountReqt, // amount in
-    ethers.BigNumber.from(1), //min out
-    ethers.BigNumber.from('900000000000000000000000000'), //deadline
-  );
-
-  console.log("-- 10 successful ---")
-
-  await execute(
-    'aggregator',
-    { from: deployer, gasLimit: 8e6 },
-    'multiSwapExactTokensForTokens',
-    [[reqt, wavax, stables[0]], [stables[0], stables[1]], [stables[1], reqt]],
-    [1, 0, 1],
-    inAmountReqt, // amount in
-    ethers.BigNumber.from(0), //min out
-    ethers.BigNumber.from('900000000000000000000000000'), //deadline
-  );
-
-  console.log("--- 101 successful ---")
-
-  await execute(
-    'aggregator',
-    { from: deployer, gasLimit: 8e6 },
-    'multiSwapExactTokensForTokens',
-    [[reqt, wavax, stables[0]], [stables[0], stables[1]], [stables[1], reqt, wavax, stables[0]], [stables[0], stables[1]]],
-    [1, 0, 1, 0],
-    inAmountReqt, // amount in
-    ethers.BigNumber.from(0), //min out
-    ethers.BigNumber.from('900000000000000000000000000'), //deadline
-  );
-
-  console.log("--- 1010 successful ---")
-
-  console.log("--- multiswap struct test---")
-
-  await execute(
-    'aggregator',
-    { from: deployer, gasLimit: 8e6 },
-    'multiSwapStructTest',
-    [reqt, wavax, stables[0]],
-    [1],
-    inAmountReqt, // amount in
-    ethers.BigNumber.from(0), //min out
-    ethers.BigNumber.from('900000000000000000000000000'), //deadline
-  );
-
-  //  const aggregatorFac = await ethers.getContractAt('RequiemAggregator', aggregator.address, deployer);
-  //   console.log("-----outprint----")
-  //  console.log(await aggregatorFac.multiSwapStructView([[reqt, wavax, stables[0]], [stables[0], stables[2]]],
-  //   [1, 0],
-  //   inAmount, // amount in
-  //   ethers.BigNumber.from(100), //min out
-  //   ethers.BigNumber.from('900000000000000000000000000')))
+  // await execute(
+  //   'aggregator',
+  //   { from: deployer, gasLimit: 8e6 },
+  //   'multiSwapExactTokensForTokens',
+  //   [[stables[0], stables[1]], [stables[1], reqt]],
+  //   [0, 1],
+  //   inAmountUSDC, // amount in
+  //   ethers.BigNumber.from(0), //min out
+  //   ethers.BigNumber.from('900000000000000000000000000'), //deadline
+  // );
+  // console.log("--- 01 succssful ---")
 
   // await execute(
   //   'aggregator',
   //   { from: deployer, gasLimit: 8e6 },
-  //   'multiSwapStructView',
-  //   [[reqt, wavax, stables[0]], [stables[0], stables[2]]],
-  //   [1, 0],
-  //   inAmount, // amount in
-  //   ethers.BigNumber.from(100), //min out
+  //   'multiSwapExactTokensForTokens',
+  //   [[stables[0], stables[1]], [stables[1], reqt, wavax, stables[2]], [stables[2], stables[0]]],
+  //   [0, 1, 0],
+  //   ethers.BigNumber.from(10000), // amount in
+  //   ethers.BigNumber.from(0), //min out
   //   ethers.BigNumber.from('900000000000000000000000000'), //deadline
   // );
 
-  // console.log(x)
+  // console.log("--- 010 successful ---")
+  // await execute(
+  //   'aggregator',
+  //   { from: deployer, gasLimit: 8e6 },
+  //   'multiSwapExactTokensForTokens',
+  //   [[reqt, wavax, stables[0]], [stables[0], stables[1]]],
+  //   [1, 0],
+  //   inAmountReqt, // amount in
+  //   ethers.BigNumber.from(1), //min out
+  //   ethers.BigNumber.from('900000000000000000000000000'), //deadline
+  // );
+
+  // console.log("-- 10 successful ---")
+
+  // await execute(
+  //   'aggregator',
+  //   { from: deployer, gasLimit: 8e6 },
+  //   'multiSwapExactTokensForTokens',
+  //   [[reqt, wavax, stables[0]], [stables[0], stables[1]], [stables[1], reqt]],
+  //   [1, 0, 1],
+  //   inAmountReqt, // amount in
+  //   ethers.BigNumber.from(0), //min out
+  //   ethers.BigNumber.from('900000000000000000000000000'), //deadline
+  // );
+
+  // console.log("--- 101 successful ---")
+
+  // await execute(
+  //   'aggregator',
+  //   { from: deployer, gasLimit: 8e6 },
+  //   'multiSwapExactTokensForTokens',
+  //   [[reqt, wavax, stables[0]], [stables[0], stables[1]], [stables[1], reqt, wavax, stables[0]], [stables[0], stables[1]]],
+  //   [1, 0, 1, 0],
+  //   inAmountReqt, // amount in
+  //   ethers.BigNumber.from(0), //min out
+  //   ethers.BigNumber.from('900000000000000000000000000'), //deadline
+  // );
+
+  // console.log("--- 1010 successful ---")
+
 
 };
 
